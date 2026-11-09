@@ -1,0 +1,18 @@
+node_modules/
+dist/
+coverage/
+playwright-report/
+test-results/
+.vite/
+*.tsbuildinfo
+.DS_Store
+.env
+.env.*
+!.env.example
+*.log
+
+# Large/private datasets must not enter the repository accidentally.
+*.pmtiles
+!tests/fixtures/*.pmtiles
+
+# Keep .agents/, .codex/, and skills-lock.json versionable.

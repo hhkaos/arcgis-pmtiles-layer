@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PMTiles + ArcGIS · Experimento personal</title>
+    <link rel="icon" href="data:," />
+    <script type="module" src="https://js.arcgis.com/5.1/"></script>
+    <style>
+      html, body { height: 100%; margin: 0; }
+      body { display: flex; flex-direction: column; font: 14px system-ui, sans-serif; }
+      header { padding: 10px 16px; background: #fff; border-bottom: 1px solid #ddd; }
+      header p { margin: 3px 0; }
+      arcgis-map { flex: 1; min-height: 0; }
+      #status { margin: 0; padding: 6px 16px; background: #f3f5f7; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <strong>PMTiles + ArcGIS · Florencia</strong>
+      <p>Experimento personal. No representa una iniciativa ni un compromiso de Esri.</p>
+      <small>Datos: <a href="https://protomaps.com/">Protomaps</a> ·
+        © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a> (ODbL).</small>
+    </header>
+    <arcgis-map center="11.255,43.77" zoom="13">
+      <arcgis-zoom slot="top-left"></arcgis-zoom>
+    </arcgis-map>
+    <p id="status" role="status">Cargando el experimento…</p>
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>

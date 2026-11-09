@@ -1,0 +1,63 @@
+# Project instructions
+
+## Current objective and authorization
+
+Build a minimal personal proof of concept to find out whether a vector PMTiles
+basemap could render in ArcGIS Maps SDK for JavaScript, and evaluate how the
+ArcGIS agentic developer toolkit, Esri developer agent skills, and documentation
+MCP help. Minimize development time and token use. This scope supersedes the
+previous publishable-library MVP and its tooling requirements.
+
+docs/SPECIFICATION.extended.md preserves the earlier library scope and workflow
+as a future alternative. It is reference material, not current instructions or
+acceptance criteria. Do not act on it unless the user chooses that later phase.
+
+The user approved docs/SPECIFICATION.md and authorized implementation on
+2026-11-09 ("ya podemos dar SPECIFICATION.md por válida. sigamos"). Proceed with
+the minimal experiment, proportionate validation, and local commits without
+asking for approval again. Read docs/MEMORY.md and docs/SPECIFICATION.md first.
+
+## Required for this phase
+
+- One HTML/CDN example using SDK 5.1 and the available browser only.
+- One known PMTiles MVT archive, one explicit compatible style, URLs fixed in code.
+  Use HTTP(S), remote or project-relative; no File picker or file://.
+- Render through ArcGIS public APIs, with the pmtiles reader as needed; no MapLibre
+  runtime, private SDK imports, global fetch patches, or second renderer.
+- Check visible cartography, pan/zoom, and actual partial HTTP Range reads.
+  A successful load() alone is not evidence of rendering.
+- Write a short result: what worked, exact versions/source, blocking limitations,
+  useful skills/MCP guidance, and next steps. A documented negative result is valid.
+- If the public-API route fails after a focused experiment, report the blocker.
+  Do not implement Service Worker, server, or renderer alternatives in this phase.
+- Preserve Powered by Esri, data credits, and the personal-experiment notice.
+
+## Deferred; do not set up now
+
+Reusable PMTilesLayer class, npm package, TypeScript public types, Vite/Calcite UI,
+advanced panel, browser/version matrix, automated test suite, CI, hooks,
+Changesets/releases, parallel agents/worktrees, raster, operational layers,
+queries, offline, and production hardening. Previous choices remain future
+preferences, not current acceptance requirements. Do not build them speculatively.
+
+## Workflow
+
+- Work sequentially; ask only consequential questions. Do not repeat the intake.
+- Use gather-arcgis-application-requirements for scope/architecture and the SDK
+  build skill for the experiment. Consult Esri documentation MCP first for ArcGIS
+  APIs; disclose any fallback. Preserve existing .agents/, .codex/, skills-lock.json.
+- Discuss in Spanish; keep code identifiers in English. Prefer concise documents.
+- Follow official SDK patterns; keep one SDK instance. Confirm credentials remain
+  unnecessary for the chosen public data/style/resources. Never store secrets.
+- Record durable decisions in docs/MEMORY.md and tasks in docs/TODO.md. Only add
+  reproducible gotchas. docs/RESEARCH.md is historical research, not a task list.
+- Do not initialize Git or commit during scope review. Once implementation is
+  approved, the earlier instruction for local English Conventional Commits per
+  coherent verified unit remains valid; validate proportionately using the browser
+  checks, without installing deferred tooling. Push/deploy/publish need instructions.
+
+## Personal status
+
+This is the author's personal experiment, motivated by personal and community
+interest. It is not an official Esri initiative, endorsement, exploration decision,
+roadmap signal, or commitment. Keep this clear in README, demo, and any report.

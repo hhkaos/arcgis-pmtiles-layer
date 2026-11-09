@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "skills": {
+    "build-with-arcgis-maps-sdk-for-javascript": {
+      "source": "Esri/esri-developer-agent-skills",
+      "sourceType": "github",
+      "skillPath": "plugins/developers/arcgis-maps-sdk-for-javascript/skills/build-with-arcgis-maps-sdk-for-javascript/SKILL.md",
+      "computedHash": "19037e9cf2c00753b33816fc9ca1afa0250863339ef142fda8014fbafafef8b5"
+    },
+    "build-with-arcgis-rest-js": {
+      "source": "Esri/esri-developer-agent-skills",
+      "sourceType": "github",
+      "skillPath": "plugins/developers/arcgis-rest-js/skills/build-with-arcgis-rest-js/SKILL.md",
+      "computedHash": "fc1fc44c8024462f03fd6d4170821a9c093f3c3fab16ca358791d044f0c8beba"
+    },
+    "follow-arcgis-authentication-patterns": {
+      "source": "Esri/esri-developer-agent-skills",
+      "sourceType": "github",
+      "skillPath": "plugins/developers/arcgis-developer-core/skills/follow-arcgis-authentication-patterns/SKILL.md",
+      "computedHash": "22280316b0ae74a94a6443ece14ff57a04c8e85c617a3dd6be1fdf16bcdd07f1"
+    },
+    "gather-arcgis-application-requirements": {
+      "source": "Esri/esri-developer-agent-skills",
+      "sourceType": "github",
+      "skillPath": "plugins/developers/arcgis-developer-core/skills/gather-arcgis-application-requirements/SKILL.md",
+      "computedHash": "ceec143dab6bf07a55576ff66fc9616561e908bc0e2ca1c2b602f5389ce942c9"
+    }
+  }
+}

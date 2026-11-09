@@ -1,0 +1,23 @@
+## Request http://127.0.0.1:8000/data/firenze.pmtiles
+Status: 206
+### Request Headers
+- referer:http://127.0.0.1:8000/
+- range:bytes=3682677-3745968
+- accept:*/*
+- accept-encoding:identity
+- accept-language:es-ES,es;q=0.9
+- connection:keep-alive
+- host:127.0.0.1:8000
+- sec-fetch-dest:empty
+- sec-fetch-mode:cors
+- sec-fetch-site:same-origin
+### Response Headers
+- accept-ranges:bytes
+- cache-control:no-cache
+- content-length:63292
+- content-range:bytes 3682677-3745968/6601156
+- content-type:application/vnd.pmtiles
+- date:Mon, 09 Nov 2026 11:02:43 GMT
+- server:SimpleHTTP/0.6 Python/3.9.19
+### Response Body
+<binary data>
