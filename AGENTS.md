@@ -36,6 +36,17 @@ asking for approval again. Read docs/MEMORY.md and docs/SPECIFICATION.md first.
   file. Keep a fixed public destination, no supplied URLs/credentials/redirects,
   bounded requests up to 8 MiB, and reject non-206 or inconsistent responses.
   This and the developer inspector supersede the initial no-panel/no-proxy limits.
+- The user subsequently requested an English interface, repository link, commit,
+  push and GitHub Pages hosting. These operations and a minimal Pages deployment
+  workflow are authorized for that task. The current client uses the public
+  Source Cooperative worldwide mirror directly (Range + CORS), in both local
+  and static hosting. Keep the old Python proxy as a local experiment only.
+  Do not publish it or add another backend. See docs/DEPLOYMENT.md.
+
+The user also requested arcgis-search, the opt-in public Living Atlas item
+00281e52fa0a4d8ea5f58c3a6a779a97 and arcgis-sketch. Use ordinary SDK layers and
+components, preserving them on basemap changes. This does not add operational
+PMTiles support. Range metrics exclude these services.
 
 ## Deferred; do not set up now
 

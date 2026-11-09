@@ -1,5 +1,9 @@
 # Mundial, selector e inspector de rangos
 
+Este informe corresponde al origen latest mediante proxy en la primera ampliación.
+La demo actual usa directamente el mirror CORS de Source Cooperative y está en
+inglés para su publicación estática. Véase [DEPLOYMENT.md](DEPLOYMENT.md).
+
 2026-11-09 · Ampliación autorizada de la PoC personal; sin iniciativa ni compromiso de Esri.
 
 ## Resultado

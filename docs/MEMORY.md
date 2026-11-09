@@ -6,6 +6,26 @@ inicializado en main antes de implementar. Sin instalación npm ni build.
 
 ## Objetivo vigente
 
+Ampliación autorizada: arcgis-search, interruptor para el item público Living
+Atlas 00281e52fa0a4d8ea5f58c3a6a779a97 (atracciones OSM de Europa) y arcgis-sketch.
+FeatureLayer/GraphicsLayer normales; no soporte operacional PMTiles. Carga diferida
+de capa y Sketch; persisten al cambiar mapa base. Ocultar Sketch conserva dibujos;
+recargar los pierde. Métricas solo PMTiles. Comprobado: búsqueda Florence, Italy
+(6 resultados sin credenciales), 496 entidades en vista, popup original y dibujo
+de punto real. Alternancia conserva ambos; consola limpia. MCP accesible.
+
+Tarea posterior autorizada: traducir UI al inglés, enlazar GitHub, commit/push y
+GitHub Pages. Remoto confirmado: hhkaos/arcgis-pmtiles-layer (público, permisos admin).
+El usuario pidió un origen mundial gratuito antes de elegir un backend nuevo.
+Se comprobó https://data.source.coop/protomaps/openstreetmap/v4.pmtiles: público,
+sin clave, Range/206, CORS *, cabeceras expuestas; tamaño 134 812 420 554 bytes.
+La interfaz usa ese mirror directamente en local y Pages; el proxy antiguo queda
+solo para pruebas locales. No se ha añadido backend externo. El mirror es más
+antiguo que latest; no prometer disponibilidad ni uso ilimitado.
+Artefacto estático dist/pages/ y workflow Pages autorizados, sin suite CI general.
+El archivo de Florencia se descarga/verifica en el workflow, no se versiona.
+Detalles en DEPLOYMENT.md. Discusión/documentos anteriores en español; UI en inglés.
+
 Ampliación autorizada: mapa mundial oficial, alternancia con Florencia y UI para
 desarrolladores con rangos/HTTP/duración/bytes/tamaño. Usuario eligió "vamos a por A":
 proxy localhost de rangos con destino fijo. Sustituye ejemplo único/sin panel/sin

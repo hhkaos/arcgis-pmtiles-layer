@@ -16,6 +16,9 @@ Implementación: demo/index.html y main.js, lector pmtiles 4.5.0 por CDN,
 scripts/download-data.sh y servidor local con Range en scripts/serve.py.
 Ampliación: range-source.js para telemetría, style.js/style.css para cartografía y
 UI Calcite; /world.pmtiles retransmite rangos desde un único origen oficial.
+Para la demo actual se seleccionó el mirror CORS de Source Cooperative: no depende
+del proxy y puede alojarse en GitHub Pages. La UI está en inglés. El workflow de
+Pages prepara dist/pages/ con scripts/prepare-pages.sh; véase DEPLOYMENT.md.
 Instrucciones y evidencia en [POC_RESULTS.md](POC_RESULTS.md).
 
 ## Reglas de trabajo

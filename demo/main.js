@@ -1,32 +1,34 @@
 import { PMTiles } from "https://cdn.jsdelivr.net/npm/pmtiles@4.5.0/+esm";
 import { RangeSource } from "./range-source.js";
 import { createStyle } from "./style.js";
+import { setupMapTools } from "./map-tools.js";
 
 const mapElement = document.querySelector("arcgis-map");
 const picker = document.querySelector("#source-picker");
 const status = document.querySelector("#status");
 const configs = {
   world: {
-    label: "Mundial · Protomaps", url: "./world.pmtiles",
-    origin: "https://latest.protomaps.com/v4.pmtiles",
-    route: "Navegador → proxy local de rangos → Protomaps",
+    label: "Worldwide · Protomaps", url: "https://data.source.coop/protomaps/openstreetmap/v4.pmtiles",
+    origin: "https://data.source.coop/protomaps/openstreetmap/v4.pmtiles",
+    route: "Browser → Source Cooperative mirror (HTTP Range)",
     center: [-3, 35], zoom: 2,
   },
   firenze: {
-    label: "Florencia · archivo local", url: "./data/firenze.pmtiles",
-    origin: "Archivo regional de ejemplo · demo/data/firenze.pmtiles",
-    route: "Navegador → archivo local (HTTP Range)",
+    label: "Florence · regional sample", url: "./data/firenze.pmtiles",
+    origin: "Regional sample · data/firenze.pmtiles",
+    route: "Browser → same-origin sample (HTTP Range)",
     center: [11.255, 43.77], zoom: 13,
   },
 };
 let current;
 let generation = 0;
 let renderTimer;
+let toolsReady;
 const formatBytes = (bytes) => {
   if (bytes == null) return "—";
   if (bytes === 0) return "0 B";
   const unit = Math.min(3, Math.floor(Math.log(bytes) / Math.log(1024)));
-  return `${(bytes / 1024 ** unit).toLocaleString("es", { maximumFractionDigits: 2 })} ${["B", "KiB", "MiB", "GiB"][unit]}`;
+  return `${(bytes / 1024 ** unit).toLocaleString("en-US", { maximumFractionDigits: 2 })} ${["B", "KiB", "MiB", "GiB"][unit]}`;
 };
 
 function render() {
@@ -42,13 +44,13 @@ function render() {
   document.querySelector("#archive-size").title = `${source.totalSize ?? "?"} bytes`;
   document.querySelector("#tile-count").textContent = source.stats.tileRequests;
   document.querySelector("#metadata").textContent = header
-    ? `PMTiles v${header.specVersion} · MVT · zoom ${header.minZoom}–${header.maxZoom} · ${source.stats.missingTiles} teselas ausentes`
-    : "Leyendo cabecera y metadatos…";
+    ? `PMTiles v${header.specVersion} · MVT · zoom ${header.minZoom}–${header.maxZoom} · ${source.stats.missingTiles} missing tiles`
+    : "Reading header and metadata…";
   const table = document.querySelector("#request-log");
   table.querySelectorAll("calcite-table-row:not([slot])").forEach((row) => row.remove());
   for (const record of source.records.slice(-40).reverse()) {
     const row = document.createElement("calcite-table-row");
-    row.title = record.error || record.contentRange || "Petición en curso";
+    row.title = record.error || record.contentRange || "Request in progress";
     for (const text of [
       `${record.start.toLocaleString("en-US")}–${record.end.toLocaleString("en-US")}`,
       record.error ? `${record.status} !` : record.status,
@@ -66,10 +68,11 @@ function scheduleRender() {
 }
 
 try {
-  const [Map, Basemap, VectorTileLayer, esriConfig] = await $arcgis.import([
+  const [Map, Basemap, VectorTileLayer, esriConfig, intl] = await $arcgis.import([
     "@arcgis/core/Map.js", "@arcgis/core/Basemap.js",
-    "@arcgis/core/layers/VectorTileLayer.js", "@arcgis/core/config.js",
+    "@arcgis/core/layers/VectorTileLayer.js", "@arcgis/core/config.js", "@arcgis/core/intl.js",
   ]);
+  intl.setLocale("en");
   await customElements.whenDefined("calcite-segmented-control");
 
   async function activate(key) {
@@ -88,7 +91,7 @@ try {
     };
     picker.disabled = true;
     document.querySelector("#reload").disabled = true;
-    status.textContent = `Cargando ${config.label}…`;
+    status.textContent = `Loading ${config.label}…`;
     delete window.pocError;
     window.poc = { source, stats: source.stats, mapElement, config, key };
     render();
@@ -97,7 +100,7 @@ try {
       session.archive = archive;
       const [header, metadata] = await Promise.all([archive.getHeader(), archive.getMetadata()]);
       if (current !== session) return;
-      if (header.specVersion !== 3 || header.tileType !== 1) throw new Error("Se requiere PMTiles v3 con MVT");
+      if (header.specVersion !== 3 || header.tileType !== 1) throw new Error("This example requires PMTiles v3 with MVT tiles");
       session.header = header;
       const interceptor = {
         urls: virtualRoot,
@@ -112,7 +115,7 @@ try {
             attribution: "Protomaps © OpenStreetMap contributors",
           };
           const match = /^(\d+)\/(\d+)\/(\d+)\.pbf$/.exec(path);
-          if (!match) throw new Error(`Ruta virtual inesperada: ${path}`);
+          if (!match) throw new Error(`Unexpected virtual path: ${path}`);
           source.stats.tileRequests++;
           const [, z, x, y] = match.map(Number);
           const tile = await archive.getZxy(z, x, y, requestOptions.signal);
@@ -136,14 +139,16 @@ try {
       else mapElement.map = new Map({ basemap: session.basemap });
       Object.assign(window.poc, { archive, header, metadata, layer, archiveUrl: source.url });
       await mapElement.viewOnReady();
+      toolsReady ??= setupMapTools(mapElement);
+      await toolsReady;
       await layer.load();
       window.poc.layerView = await mapElement.view.whenLayerView(layer);
       await mapElement.goTo({ center: config.center, zoom: config.zoom }, { animate: false });
-      if (current === session) status.textContent = `${config.label} preparado · explora el mapa para solicitar más rangos.`;
+      if (current === session) status.textContent = `${config.label} ready · explore the map to request more ranges.`;
     } catch (error) {
       if (current !== session || error.name === "AbortError") return;
       session.dispose();
-      status.textContent = `Error en ${config.label}: ${error.message}`;
+      status.textContent = `Error loading ${config.label}: ${error.message}`;
       console.error(error);
       window.pocError = { name: error.name, message: error.message };
     } finally {
@@ -156,7 +161,7 @@ try {
   }
 
   picker.addEventListener("calciteSegmentedControlChange", () =>
-    activate(picker.selectedItem.value === "Mundial" ? "world" : "firenze"));
+    activate(picker.selectedItem.value === "Worldwide" ? "world" : "firenze"));
   document.querySelector("#reload").addEventListener("click", () => activate(current.key));
   document.querySelector("#home").addEventListener("click", () => {
     if (!mapElement.view) return;
@@ -167,6 +172,6 @@ try {
   window.addEventListener("pagehide", () => current?.dispose(), { once: true });
   await activate("world");
 } catch (error) {
-  status.textContent = `No se pudo iniciar el ejemplo: ${error.message}`;
+  status.textContent = `Could not start the example: ${error.message}`;
   console.error(error);
 }

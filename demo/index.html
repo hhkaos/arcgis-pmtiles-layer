@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -11,48 +11,55 @@
   <body>
     <calcite-shell>
       <header slot="header">
-        <div class="identity"><strong>PMTiles <span>/</span> ArcGIS</strong><span class="tag">DEVELOPER LAB</span></div>
-        <p>Experimento personal. No representa una iniciativa ni un compromiso de Esri.</p>
+        <div class="identity"><strong>PMTiles <span>/</span> ArcGIS</strong><span class="tag">DEVELOPER LAB</span><a class="repo-link" href="https://github.com/hhkaos/arcgis-pmtiles-layer" target="_blank" rel="noopener noreferrer">GitHub ↗</a></div>
+        <p>Personal experiment. Not an official Esri initiative or commitment.</p>
       </header>
-      <arcgis-map center="-3,35" zoom="2">
+      <arcgis-map center="-3,35" zoom="2" popup-component-enabled>
         <arcgis-zoom slot="top-left"></arcgis-zoom>
+        <arcgis-search slot="top-left" popup-disabled></arcgis-search>
       </arcgis-map>
       <calcite-shell-panel slot="panel-end" id="inspector">
-        <calcite-panel heading="HTTP Range inspector" description="Lecturas del archivo PMTiles">
+        <calcite-panel heading="HTTP Range inspector" description="PMTiles archive reads">
           <div class="panel-content">
-            <calcite-segmented-control id="source-picker" label-text="Archivo PMTiles" scale="m">
-              <calcite-segmented-control-item value="Mundial" checked>Mundial</calcite-segmented-control-item>
-              <calcite-segmented-control-item value="Florencia">Florencia</calcite-segmented-control-item>
+            <calcite-segmented-control id="source-picker" label-text="PMTiles archive" scale="m">
+              <calcite-segmented-control-item value="Worldwide" checked>Worldwide</calcite-segmented-control-item>
+              <calcite-segmented-control-item value="Florence">Florence</calcite-segmented-control-item>
             </calcite-segmented-control>
             <div class="actions">
-              <calcite-button id="home" appearance="outline" scale="s" icon-start="home">Vista inicial</calcite-button>
-              <calcite-button id="reload" appearance="transparent" scale="s" icon-start="refresh">Nueva sesión</calcite-button>
+              <calcite-button id="home" appearance="outline" scale="s" icon-start="home">Initial view</calcite-button>
+              <calcite-button id="reload" appearance="transparent" scale="s" icon-start="refresh">New session</calcite-button>
             </div>
-            <h2 id="source-title">Mundial · Protomaps</h2>
+            <h2>ArcGIS tools</h2>
+            <calcite-label layout="inline"><calcite-switch id="atlas-toggle" disabled></calcite-switch>Living Atlas · tourist attractions</calcite-label>
+            <p class="muted">Public <a href="https://www.arcgis.com/home/item.html?id=00281e52fa0a4d8ea5f58c3a6a779a97" target="_blank" rel="noopener noreferrer">OpenStreetMap attractions for Europe</a>. Opens Florence when a closer view is needed. Click a feature for details.</p>
+            <calcite-label layout="inline"><calcite-switch id="sketch-toggle" disabled></calcite-switch>Sketch toolbar</calcite-label>
+            <p class="muted">Drawings stay on the map when the toolbar is hidden. Stored only in this browser session.</p>
+            <p id="tools-status" class="muted" role="status"></p>
+            <h2 id="source-title">Worldwide · Protomaps</h2>
             <code id="source-origin"></code>
             <p class="muted" id="source-route"></p>
-            <div class="metrics" aria-label="Métricas de la sesión">
-              <div><span>Cuerpos recibidos</span><strong id="received-bytes">0 B</strong></div>
-              <div><span>Peticiones de rango</span><strong id="request-count">0</strong></div>
-              <div><span>Tamaño del archivo</span><strong id="archive-size">—</strong></div>
-              <div><span>Solicitudes de tesela</span><strong id="tile-count">0</strong></div>
+            <div class="metrics" aria-label="Session metrics">
+              <div><span>Body bytes received</span><strong id="received-bytes">0 B</strong></div>
+              <div><span>Range requests</span><strong id="request-count">0</strong></div>
+              <div><span>Archive size</span><strong id="archive-size">—</strong></div>
+              <div><span>Tile requests</span><strong id="tile-count">0</strong></div>
             </div>
-            <p class="muted" id="metadata">Leyendo metadatos…</p>
-            <p id="status" role="status">Iniciando el experimento…</p>
-            <h2>Rangos solicitados <small>últimos 40</small></h2>
+            <p class="muted" id="metadata">Reading metadata…</p>
+            <p id="status" role="status">Starting the experiment…</p>
+            <h2>Requested ranges <small>latest 40</small></h2>
             <div class="requests">
-              <calcite-table id="request-log" caption="Peticiones HTTP Range de la sesión" scale="s" interaction-mode="static">
+              <calcite-table id="request-log" caption="Session HTTP Range requests" scale="s" interaction-mode="static">
                 <calcite-table-row slot="table-header">
-                  <calcite-table-header heading="Bytes inicio–fin"></calcite-table-header>
+                  <calcite-table-header heading="Byte range"></calcite-table-header>
                   <calcite-table-header heading="HTTP"></calcite-table-header>
-                  <calcite-table-header heading="Recibidos"></calcite-table-header>
+                  <calcite-table-header heading="Received"></calcite-table-header>
                   <calcite-table-header heading="ms"></calcite-table-header>
                 </calcite-table-row>
               </calcite-table>
             </div>
-            <p class="muted footnote">Contadores desde la última selección o «Nueva sesión». Suma de bytes leídos de los cuerpos HTTP, antes de descomprimir; incluye rangos repetidos. Excluye cabeceras, módulos CDN y recursos ya resueltos en la caché del lector. Pasa el cursor por una fila para ver Content-Range o el error.</p>
-            <p class="muted footnote">Mundial usa un proxy local con destino fijo por el CORS del origen. Acceso experimental a datos públicos; para una aplicación permanente, aloja tu propia copia. Estilo de diagnóstico sin etiquetas.</p>
-            <footer>Datos: <a href="https://protomaps.com/">Protomaps</a> · © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a> (ODbL).</footer>
+            <p class="muted footnote">Counters start when selecting an archive or starting a new session. Body bytes are counted before decompression, including repeated ranges. Headers, CDN modules, search, overlays and reader cache hits are excluded. Hover a row for Content-Range or error details.</p>
+            <p class="muted footnote">The worldwide archive is read directly from the public Source Cooperative mirror. Experimental access, without an availability guarantee; host your own copy for a permanent application. Diagnostic style without labels.</p>
+            <footer>Data: <a href="https://protomaps.com/">Protomaps</a> · © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a> (ODbL).</footer>
           </div>
         </calcite-panel>
       </calcite-shell-panel>

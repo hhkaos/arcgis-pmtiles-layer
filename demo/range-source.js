@@ -32,20 +32,20 @@ export class RangeSource {
       record.contentRange = response.headers.get("Content-Range") || "";
       if (response.status !== 206) {
         await response.body?.cancel();
-        if (response.status === 416) throw new EtagMismatch("El archivo ha cambiado o el rango no existe");
-        throw new Error(`HTTP ${response.status}: se esperaba una respuesta parcial 206`);
+        if (response.status === 416) throw new EtagMismatch("The archive changed or the range does not exist");
+        throw new Error(`HTTP ${response.status}: expected a partial 206 response`);
       }
       const parts = /^bytes (\d+)-(\d+)\/(\d+)$/.exec(record.contentRange);
       if (!parts || Number(parts[1]) !== offset || Number(parts[2]) > record.end) {
         await response.body?.cancel();
-        throw new Error("Content-Range no coincide con la petición");
+        throw new Error("Content-Range does not match the request");
       }
       this.totalSize = Number(parts[3]);
       const rawEtag = response.headers.get("ETag");
       const actualEtag = rawEtag && !rawEtag.startsWith("W/") ? rawEtag : undefined;
       if (etag && actualEtag && etag !== actualEtag) {
         await response.body?.cancel();
-        throw new EtagMismatch("El ETag del archivo ha cambiado");
+        throw new EtagMismatch("The archive ETag changed");
       }
       const reader = response.body.getReader();
       const chunks = [];
@@ -56,12 +56,12 @@ export class RangeSource {
         this.stats.bytes += value.byteLength;
         if (record.bytes > length) {
           await reader.cancel();
-          throw new Error("La respuesta excede el rango solicitado");
+          throw new Error("The response exceeds the requested range");
         }
         chunks.push(value);
         this.notify();
       }
-      if (record.bytes !== Number(parts[2]) - offset + 1) throw new Error("Rango incompleto");
+      if (record.bytes !== Number(parts[2]) - offset + 1) throw new Error("Incomplete range response");
       const data = new Uint8Array(record.bytes);
       let position = 0;
       for (const chunk of chunks) { data.set(chunk, position); position += chunk.length; }
@@ -71,7 +71,7 @@ export class RangeSource {
         expires: response.headers.get("Expires") || undefined,
       };
     } catch (error) {
-      if (error.name === "AbortError") record.status = "Cancelada";
+      if (error.name === "AbortError") record.status = "Canceled";
       record.error = error.message;
       throw error;
     } finally {

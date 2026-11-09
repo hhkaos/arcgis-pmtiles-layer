@@ -3,10 +3,19 @@
 Fecha: 2026-11-09 · Estado: aprobada; implementación del experimento autorizada.
 Sustituye al anterior MVP de librería publicable.
 Ejecución completada; evidencia y límites en [POC_RESULTS.md](POC_RESULTS.md).
+Publicación posterior autorizada: UI en inglés, enlace al repositorio y GitHub
+Pages. La demo lee el mundial desde un mirror CORS público, sin backend desplegado.
+Preparación descrita en [DEPLOYMENT.md](DEPLOYMENT.md).
 
 La [especificación ampliada alternativa](SPECIFICATION.extended.md) conserva el
 alcance de librería y las decisiones anteriores para una posible fase futura.
 No forma parte de la prueba de concepto actual.
+
+Ampliación posterior solicitada: arcgis-search y controles para activar el item
+Living Atlas 00281e52fa0a4d8ea5f58c3a6a779a97 y arcgis-sketch. Componentes y capas
+estándar del SDK, independientes del transporte PMTiles; no soporte operacional
+PMTiles. Dibujos temporales, sin guardado. Conservar capas y gráficos al alternar
+mapas base; excluir su tráfico del inspector.
 
 ## Propósito
 
