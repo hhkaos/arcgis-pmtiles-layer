@@ -6,6 +6,13 @@ inicializado en main antes de implementar. Sin instalación npm ni build.
 
 ## Objetivo vigente
 
+Publicación completada: https://www.rauljimenez.info/arcgis-pmtiles-layer/
+Pages hereda el dominio existente de la cuenta; hhkaos.github.io redirige allí.
+Código b3a0be3; workflow 42642959259 finalizado correctamente. Comprobados en
+HTTPS público ambos mapas con rangos 206, Search (6 resultados), capa Living Atlas
+y dibujo Sketch real; consola limpia. Mundial inicial: 585 094 bytes, 12 rangos.
+La ampliación solicitada está completada; no iniciar más fases sin instrucciones.
+
 Ampliación autorizada: arcgis-search, interruptor para el item público Living
 Atlas 00281e52fa0a4d8ea5f58c3a6a779a97 (atracciones OSM de Europa) y arcgis-sketch.
 FeatureLayer/GraphicsLayer normales; no soporte operacional PMTiles. Carga diferida

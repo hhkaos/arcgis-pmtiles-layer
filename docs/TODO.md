@@ -28,8 +28,7 @@
 - [x] Search, Living Atlas y Sketch; verificar dibujo, popup y persistencia - 2026-11-09
 - [x] Preparar artefacto estático y workflow Pages - 2026-11-09
 
-## Publicación autorizada
-
-- [ ] Push y despliegue Pages; verificar la URL pública.
+- [x] Push y despliegue Pages; ambos mapas, Search, Living Atlas y Sketch
+  verificados en la URL pública - 2026-11-09
 
 El resto del alcance ampliado sigue diferido.

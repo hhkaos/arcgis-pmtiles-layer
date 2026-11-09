@@ -54,6 +54,14 @@ GitHub Pages cannot execute that proxy.
 GitHub Pages inherits the account domain www.rauljimenez.info. The original
 hhkaos.github.io project URL redirects there; no account-wide domain was changed.
 
+## Published verification
+
+Published on 2026-11-09 from b3a0be3; [deployment run](https://github.com/hhkaos/arcgis-pmtiles-layer/actions/runs/42642959259) succeeded.
+The public HTTPS page rendered both basemaps with actual 206 responses. Worldwide
+initial view read 585,094 bytes in 12 ranges. Search returned six Florence results;
+the Living Atlas layer rendered at city scale and Sketch created a point. Console
+had no warnings or errors. Figures describe this check, not performance guarantees.
+
 ## Publish
 
 The Pages workflow runs on pushes to main or manual dispatch:
