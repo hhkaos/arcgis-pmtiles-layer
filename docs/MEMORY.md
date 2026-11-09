@@ -1,10 +1,15 @@
 # Memoria del proyecto
 
-Actualizada: 2026-11-09. Estado: PoC implementada y comprobada; resultado positivo
-para el único ejemplo. Informe y evidencia en POC_RESULTS.md. Git ya estaba
+Actualizada: 2026-11-09. Estado: PoC y ampliación mundial/Florencia comprobadas.
+Informes en POC_RESULTS.md y WORLD_RESULTS.md. Git ya estaba
 inicializado en main antes de implementar. Sin instalación npm ni build.
 
 ## Objetivo vigente
+
+Ampliación autorizada: mapa mundial oficial, alternancia con Florencia y UI para
+desarrolladores con rangos/HTTP/duración/bytes/tamaño. Usuario eligió "vamos a por A":
+proxy localhost de rangos con destino fijo. Sustituye ejemplo único/sin panel/sin
+proxy; no autoriza la fase de librería reutilizable ni más infraestructura.
 
 El usuario reduce el anterior MVP de librería publicable a una prueba de concepto
 para comprobar si podría funcionar y evaluar la utilidad de las skills y el MCP.
@@ -18,8 +23,8 @@ futura, no instrucciones para ampliar la PoC actual.
 ## Confirmado en la entrevista breve
 
 - Una página HTML/CDN con SDK 5.1 y el navegador disponible únicamente.
-- Un mapa base vectorial PMTiles y estilo explícito, con URLs fijas en código.
-- Ejemplo automático sin panel avanzado, formularios ni selector de archivos.
+- Dos mapas base conocidos (Florencia/mundial), estilos de diagnóstico y URLs fijas.
+- Ejemplo automático con selector e inspector; sin formularios de URLs ni File.
 - HTTP(S), remoto o relativo al proyecto; sin file:// ni File/Blob.
 - Comprobación visual de mapa/pan/zoom y red Range/206, e informe breve.
 - Si falla la ruta pública, documentar el bloqueo sin desarrollar alternativas.
@@ -39,6 +44,26 @@ con extracto regional propio, sin hotlinking ni descarga global. Demo sin claves
 conservar aviso de requisitos de producción sin añadir servicios autenticados.
 
 ## Evidencia y pregunta técnica
+
+Mundial: https://latest.protomaps.com/v4.pmtiles, origen usado por maps.protomaps.com.
+139 407 008 771 bytes observados. Latest y build fechado bloquean localhost por CORS;
+demo-bucket antiguo devuelve 404. Proxy /world.pmtiles, sin URL del cliente,
+credenciales ni redirects, máximo 8 MiB, exige 206/Content-Range coherente.
+User-Agent propio arcgis-pmtiles-personal-poc/0.1; el genérico de urllib devolvía
+403 (1010), el identificativo funciona. No suplantar un navegador.
+
+RangeSource instrumenta la interfaz pública Source de pmtiles sin modificar fetch
+global. Métricas desde cada selección/nueva sesión, suma de cuerpos antes de
+descomprimir, no tráfico total/facturación. Últimas 40 filas, máximo 200 registros.
+Calcite desde el mismo CDN ArcGIS; estilo de diagnóstico propio, sin etiquetas.
+Primer mundial comprobado: 12 rangos, 590 634 bytes, 9 teselas, ninguna ausente.
+Proxy rechaza peticiones sin rango/abiertas/invertidas/>8 MiB (400) y URL arbitraria
+en query no tiene ruta (404). Captura: docs/evidence/world-inspector.jpg.
+Alternancia verificada: Florencia zoom 13, 337 810 bytes; mundial y Tokio zoom 11,
+1 344 380 bytes. Un interceptor activo, cero peticiones virtuales, consola limpia.
+Se comprobaron respuestas upstream simuladas 200/incoherentes sin leer cuerpos.
+Informe completo: WORLD_RESULTS.md. La ampliación está terminada; no iniciar más
+fases sin instrucciones.
 
 MCP de documentación consultado con éxito en esta sesión. Configuración existente:
 https://developers-mcpdevext.arcgis.com/mcp (no se ha cambiado). Hay skills locales

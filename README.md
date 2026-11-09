@@ -19,8 +19,8 @@ Prueba de concepto mínima para comprobar si un mapa base vectorial PMTiles pued
 renderizarse con ArcGIS Maps SDK for JavaScript, sin incorporar MapLibre, y evaluar
 la ayuda de las skills y del MCP durante el experimento.
 
-**Estado: PoC comprobada en ArcGIS 5.1 y Chrome.** Se representan teselas de un
-archivo PMTiles con ArcGIS, mediante un interceptor público y sin MapLibre.
+**Estado: PoC comprobada en ArcGIS 5.1 y Chrome.** Permite alternar entre Florencia
+y un mapa mundial de Protomaps, con renderizado ArcGIS e inspector de rangos HTTP.
 
 Para ejecutarla desde la raíz:
 
@@ -30,8 +30,12 @@ python3 scripts/serve.py
 ```
 
 Abrir http://127.0.0.1:8000/. Se requiere conexión a los CDN, sin claves ni npm.
-El archivo regional (6,6 MB) se descarga aparte. Consultar el
-[informe y sus límites](docs/POC_RESULTS.md) y la [captura](docs/evidence/firenze.jpg).
+El archivo regional (6,6 MB) se descarga aparte. El mundial se lee por rangos desde
+el origen oficial mediante un proxy local de destino fijo; no se descarga entero.
+Si el servidor ya estaba arrancado, reiniciarlo para activar /world.pmtiles.
+Consultar [el experimento mundial y sus límites](docs/WORLD_RESULTS.md),
+la [captura del inspector](docs/evidence/world-inspector.jpg) y el
+[informe inicial de Florencia](docs/POC_RESULTS.md).
 
 Lectura recomendada:
 
@@ -45,12 +49,13 @@ Para una posible continuación, se conserva la
 [especificación ampliada alternativa](docs/SPECIFICATION.extended.md).
 El alcance vigente sigue siendo la prueba de concepto mínima.
 
-La prueba utiliza un HTML con ArcGIS 5.1 desde CDN, el archivo regional de ejemplo
-de Florencia de Protomaps y un estilo sencillo con URLs fijas, sin panel avanzado.
-Se han comprobado renderizado, navegación y lecturas parciales del archivo;
-no es una librería apta para uso real.
+La prueba utiliza HTML/CDN y Calcite, URLs fijas y estilos de diagnóstico sin
+etiquetas. El panel muestra rangos, estado HTTP, duración, bytes recibidos y tamaño
+del archivo. «Nueva sesión» reinicia lector y contadores. Los bytes corresponden
+a los cuerpos leídos antes de descomprimir, no al tráfico facturable ni a todo
+lo descargado por la aplicación. No es una librería apta para uso real.
 
-PMTilesLayer reutilizable, paquete npm, pruebas amplias de compatibilidad, UI,
+PMTilesLayer reutilizable, paquete npm, pruebas amplias de compatibilidad, formularios,
 CI/releases, ráster y operacionales quedan para una fase posterior, si se decide
 continuar. No son requisitos de esta prueba.
 

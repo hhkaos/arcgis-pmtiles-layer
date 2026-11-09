@@ -1,5 +1,8 @@
 # Resultado de la prueba de concepto
 
+Informe de la primera ejecución de Florencia. La ampliación posterior con mundial,
+proxy e inspector está en [WORLD_RESULTS.md](WORLD_RESULTS.md).
+
 2026-11-09 · Experimento personal, sin iniciativa ni compromiso de Esri.
 
 **Resultado positivo para el ejemplo probado:** ArcGIS representa las teselas MVT

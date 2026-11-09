@@ -24,11 +24,17 @@ ni del equipo del SDK. Mantener este aviso visible en README y demo.
 
 ## Demostración mínima acordada
 
+**Ampliación posterior autorizada:** alternar Florencia y un archivo mundial
+oficial de Protomaps, con inspector de rangos/estado HTTP/duración/bytes leídos
+y tamaño del archivo. Se mantiene HTML/CDN 5.1 y un navegador. El usuario eligió
+opción A: proxy localhost de rangos con destino fijo, por el CORS del origen.
+Este bloque sustituye los límites iniciales de ejemplo único/sin panel/sin proxy.
+
 - Una página HTML con ArcGIS 5.1 desde CDN, ejecutada mediante HTTP local.
-- Un único mapa base MVT/PMTiles y un estilo explícito compatible, con URLs fijas
+- Dos mapas base MVT/PMTiles y estilos explícitos compatibles, con URLs fijas
   en el código: remotas o relativas al proyecto. Sin selector de archivos.
-- Carga automática del ejemplo y navegación pan/zoom. Sin panel avanzado,
-  formularios, selector de estilos ni controles propios adicionales.
+- Carga automática y pan/zoom; selector Mundial/Florencia, vista inicial, nueva
+  sesión e inspector de lecturas. Sin formularios de URLs arbitrarias ni estilos.
 - Una versión del SDK y el navegador disponible; registrar cuáles se probaron.
 - Renderizador ArcGIS y APIs públicas; lector pmtiles cuando sea necesario.
 - Demo sin credenciales, conservando atribuciones de Esri y proveedores.
@@ -37,7 +43,13 @@ Candidato de datos: un extracto regional de los
 [builds de Protomaps](https://maps.protomaps.com/builds/), servido por el proyecto
 sin hotlinking al bucket de descargas. Elegir un recurso pequeño y compatible;
 no descargar el planeta ni crear una infraestructura de fixtures. Registrar
-procedencia, estilo y créditos. Dataset concreto pendiente de seleccionar.
+procedencia, estilo y créditos. Se seleccionó el ejemplo regional de Florencia.
+
+Fuentes seleccionadas: archivo regional oficial de Florencia y
+https://latest.protomaps.com/v4.pmtiles (mundial, mediante /world.pmtiles).
+El proxy sirve bytes, no transforma ni decodifica teselas; máximo 8 MiB por
+petición, sin destinos arbitrarios ni respuestas completas 200. Uso experimental,
+no origen permanente de una aplicación pública.
 
 ## Hipótesis y límites del experimento
 
@@ -45,7 +57,8 @@ Probar VectorTileLayer con adaptación PMTiles mediante el interceptor público 
 esriRequest. Es una hipótesis, no una integración demostrada. Consultar firmas y
 patrones oficiales usando el MCP; investigar solo lo necesario para esta ruta.
 Si aparecen obstáculos, producir un resultado reproducible y explicar qué faltaría.
-No desarrollar alternativas con Service Worker, servidor o segundo motor.
+No desarrollar Service Worker, servidor de conversión de teselas o segundo motor.
+El proxy de bytes de destino fijo sí está autorizado para el archivo mundial.
 
 La clase new PMTilesLayer({ url, style, sourceId, ... }) sigue siendo la experiencia
 preferida para una futura librería. No es obligatoria para demostrar ahora el
@@ -60,6 +73,8 @@ No estabilizar una API ni implementar compatibilidad general de estilos.
    peticiones virtuales que escapen al adaptador. Revisar errores relevantes.
 4. Entregar el ejemplo y un informe breve con versión del SDK/navegador, URLs,
    resultado, bloqueo si lo hay y qué aportaron las skills/MCP con ejemplos concretos.
+5. Comprobar cambio de archivo, limpieza de interceptores y límites del proxy.
+   Las métricas cuentan cuerpos recibidos por el lector, no tráfico facturable.
 
 El resultado puede ser positivo o negativo. Un bloqueo documentado en la ruta
 pública también cumple el objetivo de aprendizaje. No extrapolar una demostración
@@ -88,7 +103,8 @@ aunque el experimento no incluya un flujo de despliegue ni autenticación.
 
 #### Remaining assumptions
 
-1. Dataset/estilo concretos por seleccionar y ruta de APIs públicas por comprobar.
+1. PoC local y ampliación mundial comprobadas; no extrapolar a otros archivos,
+   estilos o versiones sin pruebas. Véase WORLD_RESULTS.md.
 
 #### Next agent actions
 

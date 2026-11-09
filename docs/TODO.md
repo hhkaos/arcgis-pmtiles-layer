@@ -12,6 +12,15 @@
 - [x] Comprobar cartografía, zoom/desplazamiento y Range/206 en Chrome.
 - [x] Documentar resultado positivo, evidencia, límites y utilidad de skills/MCP en POC_RESULTS.md.
 
-No añadir tareas de paquete, API estable, UI avanzada, compatibilidad amplia,
+## Ampliación mundial e inspector autorizada
+
+- [x] Identificar origen mundial oficial y comprobar CORS.
+- [x] Implementar opción A: proxy localhost de rangos con destino fijo y límites.
+- [x] Instrumentar lecturas reales y añadir selector/inspector con Calcite.
+- [x] Verificar alternancia, navegación mundial/Tokio y limpieza de interceptores.
+- [x] Comprobar límites del proxy y rechazo de respuestas upstream completas/incoherentes.
+- [x] Registrar evidencia mundial en WORLD_RESULTS.md y captura.
+
+No añadir tareas de paquete, API estable, formularios arbitrarios, compatibilidad amplia,
 CI, releases, ráster ni operacionales a esta fase. Decidir continuidad después
 del resultado. No publicar, hacer push ni desplegar automáticamente.

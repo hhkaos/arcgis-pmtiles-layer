@@ -2,6 +2,8 @@
 
 Estado: experimento completado; resultado positivo limitado al ejemplo.
 Informe: [POC_RESULTS.md](POC_RESULTS.md).
+La ampliación mundial/Florencia con proxy de rangos e inspector está implementada
+y comprobada; evidencia en [WORLD_RESULTS.md](WORLD_RESULTS.md).
 Estos pasos son intenciones personales, no planes ni compromisos de Esri.
 
 1. Confirmar la consulta al MCP y utilizar las skills para identificar los puntos

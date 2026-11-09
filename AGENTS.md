@@ -20,7 +20,8 @@ asking for approval again. Read docs/MEMORY.md and docs/SPECIFICATION.md first.
 ## Required for this phase
 
 - One HTML/CDN example using SDK 5.1 and the available browser only.
-- One known PMTiles MVT archive, one explicit compatible style, URLs fixed in code.
+- Two known PMTiles MVT archives (local Firenze and official worldwide), diagnostic
+  styles and fixed URLs, with a source selector and developer Range inspector.
   Use HTTP(S), remote or project-relative; no File picker or file://.
 - Render through ArcGIS public APIs, with the pmtiles reader as needed; no MapLibre
   runtime, private SDK imports, global fetch patches, or second renderer.
@@ -31,11 +32,15 @@ asking for approval again. Read docs/MEMORY.md and docs/SPECIFICATION.md first.
 - If the public-API route fails after a focused experiment, report the blocker.
   Do not implement Service Worker, server, or renderer alternatives in this phase.
 - Preserve Powered by Esri, data credits, and the personal-experiment notice.
+- The user authorized option A: a localhost HTTP byte-range proxy for the world
+  file. Keep a fixed public destination, no supplied URLs/credentials/redirects,
+  bounded requests up to 8 MiB, and reject non-206 or inconsistent responses.
+  This and the developer inspector supersede the initial no-panel/no-proxy limits.
 
 ## Deferred; do not set up now
 
-Reusable PMTilesLayer class, npm package, TypeScript public types, Vite/Calcite UI,
-advanced panel, browser/version matrix, automated test suite, CI, hooks,
+Reusable PMTilesLayer class, npm package, TypeScript public types, Vite,
+arbitrary configuration forms, browser/version matrix, automated test suite, CI, hooks,
 Changesets/releases, parallel agents/worktrees, raster, operational layers,
 queries, offline, and production hardening. Previous choices remain future
 preferences, not current acceptance requirements. Do not build them speculatively.
